@@ -56,11 +56,11 @@ Vite prints the local development URL in the terminal, normally `http://localhos
 Create a `.env` file from `.env.example` and provide these build-time variables:
 
 ```dotenv
-VITE_AUTH_BASE_URL=https://dev.apinetbo.bekindnetwork.com
-VITE_API_BASE_URL=https://dev.api.bekindnetwork.com
+VITE_AUTH_BASE_URL=
+VITE_API_BASE_URL=
 ```
 
-`VITE_` variables are embedded in the client bundle. Do not store secrets in them.
+Set the values for these variables in your local `.env` file or in your hosting provider. `VITE_` variables are embedded in the client bundle. Do not store secrets in them.
 
 ## Available Scripts
 
