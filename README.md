@@ -1,133 +1,109 @@
-# Prueba Técnica Lógika
+# Logika Technical Test
 
-Aplicación web para la administración de buenas acciones (categorías), que permite crear, listar y buscar registros conectándose a una API REST externa.
+A React single-page application for managing good-action categories. It supports authentication, private routes, category listing, filtering, sorting, pagination, and category creation through external REST APIs.
 
-## 1. Descripción general
+## Table of Contents
 
-El proyecto consiste en un **panel administrativo** construido con **React** que se comunica con un servicio backend a través de endpoints REST.  
-Incluye autenticación mediante token, rutas privadas protegidas y manejo de formularios con validaciones en cliente.
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [Routes](#routes)
+- [Project Structure](#project-structure)
+- [Deploying to Netlify](#deploying-to-netlify)
+- [License](#license)
 
-## 2. Características principales
+## Features
 
-- Inicio de sesión con persistencia de token
-- Rutas privadas y públicas protegidas mediante contexto de autenticación
-- Listado de acciones con paginación, filtros y ordenamiento
-- Creación de acciones
-- Validaciones dinámicas en formularios
-- Envío de archivos mediante `FormData`
-- Integración con API REST
-- Feedback visual (modales, toasts y mensajes de error)
-- Estilos con **Tailwind CSS**
+- Token-based authentication persisted in `localStorage`.
+- Public and protected routes.
+- Paginated category list with filters and sorting.
+- Category creation with client-side validation and file uploads.
+- REST API integration through the Fetch API.
+- Error messages, loading states, toast notifications, and feedback modals.
 
-## 3. Tecnologías utilizadas
+## Tech Stack
 
-- React
-- Vite
-- React Router DOM
-- Tailwind CSS
+- React 19
+- Vite 7
+- React Router DOM 7
+- Tailwind CSS 4
 - Context API
-- Fetch API para consumo de endpoints
-- Node.js (entorno de ejecución)
+- ESLint and Prettier
 
-## 4. Requisitos previos
+## Prerequisites
 
-- Node.js versión 18 o superior
-- npm versión 9 o superior
-- Acceso a la API REST (endpoints disponibles de la prueba técnica)
+- Node.js 20.19.0 or later, or Node.js 22.12.0 or later.
+- npm.
+- Access to the authentication and actions APIs.
 
-## 5. Instalación local
-
-Clonar el repositorio e instalar las dependencias:
+## Getting Started
 
 ```bash
-git clone https://github.com/wavival/Prueba_Tecnica_Logika.git
-cd Prueba_Tecnica_Logika
-npm install
-```
-
-Configurar las variables de entorno:
-
-```bash
+git clone https://github.com/wavival/logika-technical-test.git
+cd logika-technical-test
+npm ci
 cp .env.example .env
-```
-
-Editar el archivo .env con la URL base de la API:
-
-```bash
-VITE_AUTH_BASE_URL=https://dev.apinetbo.bekindnetwork.com
-VITE_API_BASE_URL=https://dev.api.bekindnetwork.com
-```
-
-Ejecutar el servidor de desarrollo:
-
-```bash
 npm run dev
 ```
 
-La aplicación estará disponible en la URL que indique la consola (por defecto http://localhost:5173).
+Vite prints the local development URL in the terminal, normally `http://localhost:5173`.
 
-## 6. Variables de entorno
+## Environment Variables
 
-Archivo .env.example:
+Create a `.env` file from `.env.example` and provide these build-time variables:
 
-```bash
-# URL base del backend
+```dotenv
 VITE_AUTH_BASE_URL=https://dev.apinetbo.bekindnetwork.com
 VITE_API_BASE_URL=https://dev.api.bekindnetwork.com
 ```
 
-## 7. Scripts disponibles
+`VITE_` variables are embedded in the client bundle. Do not store secrets in them.
+
+## Available Scripts
 
 ```bash
-npm run dev       # Ejecuta el entorno de desarrollo
-
-npm run build     # Genera el build de producción
-
-npm run preview   # Sirve el build localmente
-
-npm run lint      # Revisión de linting
+npm run dev      # Starts the Vite development server.
+npm run build    # Creates the production bundle in dist/.
+npm run preview  # Serves the production bundle locally.
+npm run lint     # Runs ESLint.
+npm run format   # Formats files with Prettier.
 ```
 
-## 8. Autenticación y rutas protegidas
+## Routes
 
-El manejo de autenticación se realiza mediante un AuthContext que persiste el token en **localStorage (BK_TOKEN)**.
-Las rutas privadas son controladas por el componente _PrivateRoute_, que redirige al usuario a _/login_ cuando no existe un token válido.
+- `/login`: public login page.
+- `/dashboard`: protected category dashboard.
+- `/create`: protected category creation page.
 
-### Estructura de rutas:
+Unauthenticated visitors are redirected to `/login`.
 
-- /login → acceso público
+## Project Structure
 
-- /dashboard → acceso privado
-
-- /create → acceso privado
-
-## 9. Despliegue
-
-Generar el build de producción:
-
-```bash
-npm run build
+```text
+src/
+├── api/        API service modules
+├── assets/     Icons and logos
+├── components/ Reusable UI components
+├── context/    Authentication state
+├── hooks/      Custom React hooks
+├── layout/     Route guards and application routing
+├── pages/      Route-level pages
+└── utils/      Fetch and error-handling utilities
 ```
 
-El contenido optimizado se encuentra en la carpeta dist/, lista para ser desplegada en cualquier servicio de hosting estático (Vercel, Netlify, Render, etc.).
+## Deploying to Netlify
 
-## 10. Estructura general del proyecto
+`netlify.toml` configures the production build (`npm run build`), publishes `dist`, uses Node.js 22, and redirects all paths to `index.html` so React Router works on direct navigation.
 
-El proyecto sigue una organización modular típica de React:
+1. Import `wavival/logika-technical-test` into Netlify.
+2. In **Project configuration → Environment variables**, add `VITE_AUTH_BASE_URL` and `VITE_API_BASE_URL` with the values required by the target API.
+3. Deploy the `main` branch.
 
-- `src/api/` – servicios y funciones de comunicación con la API
-- `src/components/` – componentes reutilizables
-- `src/pages/` – páginas principales del enrutador
-- `src/layout/` – layouts y rutas privadas/públicas
-- `src/context/` – contexto global de autenticación
-- `src/utils/` – utilidades compartidas
+Netlify runs the configured build automatically. Any environment-variable change requires a new deployment because Vite reads them at build time.
 
-## 11. Contribución
+## License
 
-Este proyecto fue realizado como parte de una prueba técnica, por lo que no se aceptan contribuciones externas.
-Puede ser utilizado como referencia o base para proyectos similares en React.
-
-## 12. Licencia
-
-Este código se entrega únicamente para fines de evaluación técnica.
-© 2025 – Prueba técnica desarrollada por Valentina Ramírez para Lógika.
+This repository is provided for technical evaluation purposes only.

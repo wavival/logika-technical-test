@@ -37,7 +37,9 @@ function createFetcher(baseUrl, { attachAuth = false } = {}) {
       let data;
       try {
         data = JSON.parse(text);
-      } catch {}
+      } catch {
+        data = undefined;
+      }
       const err = new Error(
         data?.message || data?.Message || text || `HTTP ${res.status}`,
       );

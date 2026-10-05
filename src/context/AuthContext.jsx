@@ -8,6 +8,8 @@ import {
 
 export const TOKEN_STORAGE_KEY = 'BK_TOKEN';
 
+// The context is intentionally exported alongside its provider for consumers.
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext({
   token: null,
   isAuthReady: false,

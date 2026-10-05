@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import more from '@/assets/icons/more.svg';
 
+const MAX_DESC = 200;
+const HEX_REGEX = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
+
 const ActionForm = ({
   loading = false,
   onSubmit,
@@ -18,9 +21,6 @@ const ActionForm = ({
   const [logo, setLogo] = useState(initialValues.logo);
   const [color, setColor] = useState(initialValues.color);
   const [active, setActive] = useState(initialValues.active);
-
-  const MAX_DESC = 200;
-  const HEX_REGEX = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
 
   const errors = useMemo(() => {
     const e = {};

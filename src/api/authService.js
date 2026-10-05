@@ -59,7 +59,9 @@ export const authService = {
       let raw = e?.message;
       try {
         raw = JSON.parse(e.message);
-      } catch {}
+      } catch {
+        raw = e?.message;
+      }
 
       const { field, message } = classifyLoginError(raw);
       const err = new Error(message);
